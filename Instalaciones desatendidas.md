@@ -1,6 +1,6 @@
 # Instalación de aplicaciones de forma desatendida
 Contenido:
-* [Instalación de 7-Zip](#instalación-de-7-Zip)
+* [Instalación de 7-Zip](#instalación-de-7-zip)
 * [Instalación de EViews](#instalación-de-eviews)
 * [Instalación de Mozilla Firefox](#instalación-de-mozilla-firefox)
 * [Instalación de Java JRE](#instalación-de-java-jre)
@@ -46,7 +46,7 @@ Setup.exe /s /f1C:\eviews\install\setup.iss
 
 ## Instalación de Mozilla Firefox
 ```Batchfile
-Firefox Setup 60.0.3.exe /S
+"Firefox Setup 60.0.3.exe" /S
 ```
 ### Referencia
 * [Mozilla Firefox - Full Installer Configuration
