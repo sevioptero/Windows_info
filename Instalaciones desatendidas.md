@@ -49,9 +49,7 @@ Setup.exe /s /f1C:\eviews\install\setup.iss
 "Firefox Setup 60.0.3.exe" /S
 ```
 ### Referencia
-* [Mozilla Firefox - Full Installer Configuration
- - Command-line Options
-](https://firefox-source-docs.mozilla.org/browser/installer/windows/installer/FullConfig.html)
+* [Mozilla Firefox - Full Installer Configuration - Command-line Options](https://firefox-source-docs.mozilla.org/browser/installer/windows/installer/FullConfig.html)
 
 ## Instalación de Java JRE
 ### Instalación mediante archivo EXE
