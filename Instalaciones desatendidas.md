@@ -124,7 +124,6 @@ Setup.exe /s /f1C:\eviews\install\setup.iss
 # Mozilla Firefox ESR
 ## Instalación
 ### Desde CMD
-Instalación.
 ```Batchfile
 "Firefox Setup 60.0.3.exe" /S
 ```
