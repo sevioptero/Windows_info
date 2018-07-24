@@ -1,5 +1,6 @@
 # Instalación de aplicaciones de forma desatendida
 Contenido:
+* [Consideraciones](#consideraciones)
 * [Instalación de 7-Zip](#instalación-de-7-zip)
 * [Instalación de EViews](#instalación-de-eviews)
 * [Instalación de Mozilla Firefox ESR](#instalación-de-mozilla-firefox-esr)
@@ -9,6 +10,11 @@ Contenido:
 
 ***
 
+## Consideraciones
+Para que funcione la instalación remota el archivo instalador debe estar desbloqueado. Esto pasa por ejemplo con el instalador de Firefox. Para desbloquearlo (o ver si lo está):
+1. Botón derecho sobre el archivo instalador.
+2. Hacemos clic en Propiedades.
+3. Marcamos Desbloquear y pulsamos Aceptar.
 
 ## Instalación de 7-Zip
 ### Instalación mediante paquete MSI
@@ -63,8 +69,8 @@ Invoke-Command -ComputerName PC01 -ScriptBlock {
 $version = "60.1.0"
 $HomePage = "https://www.web.com"
 $InstallPath = "\\server\Shared\Apps"
-New-PSDrive -Name "PSDrive" -PSProvider "FileSystem" -Root $InstallPath -Credential $using:credenciales
-Start-Process -FilePath "$InstallPath\Firefox Setup $($version)esr.exe" -ArgumentList "/S /TaskbarShortcut=true /DesktopShortcut=true" -Wait
+New-PSDrive -Name "PSDrive" -PSProvider "FileSystem" -Root "$InstallPath\Firefox-ESR" -Credential $using:credenciales
+Start-Process -FilePath "$InstallPath\Firefox-ESR\Firefox Setup $($version)esr.exe" -ArgumentList "/S /TaskbarShortcut=true /DesktopShortcut=true" -Wait
 New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox" -Name "DontCheckDefaultBrowser" -PropertyType "DWord" -Value "1" -Force
 New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox" -Name "DisableTelemetry" -PropertyType "DWord" -Value "1" -Force
 New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox" -Name "OverrideFirstRunPage" -PropertyType "String" -Value $HomePage -Force
