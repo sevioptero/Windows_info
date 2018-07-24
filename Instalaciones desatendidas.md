@@ -2,7 +2,7 @@
 Contenido:
 * [Instalación de 7-Zip](#instalación-de-7-zip)
 * [Instalación de EViews](#instalación-de-eviews)
-* [Instalación de Mozilla Firefox](#instalación-de-mozilla-firefox)
+* [Instalación de Mozilla Firefox ESR](#instalación-de-mozilla-firefox-esr)
 * [Instalación de Java JRE](#instalación-de-java-jre)
 * [Instalación de VLC](#instalación-de-vlc)
 * [Enlaces](#enlaces)
@@ -46,10 +46,17 @@ Setup.exe /s /f1C:\eviews\install\setup.iss
 * [Silent install of 7.1 patch & update](http://forums.eviews.com/viewtopic.php?t=2351)
 
 ## Instalación de Mozilla Firefox ESR
+### Desde CMD
+Instalación.
 ```Batchfile
 "Firefox Setup 60.0.3.exe" /S
 ```
-Instalación remota con PowerShell:
+Desinstalación:
+```Batchfile
+%programfiles%\Mozilla Firefox\uninstall\helper.exe /SILENT
+```
+### Desde PowerShell
+Instalación en un equipo remoto.
 ```powershell
 $credenciales = Get-Credential -Credential "Dominio\Usuario"
 Invoke-Command -ComputerName PC01 -ScriptBlock { 
@@ -65,6 +72,12 @@ New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox\Homepage" -Name 
 New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox\Homepage" -Name "Locked" -PropertyType "DWord" -Value "1" -Force
 New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox\PopupBlocking\Allow" -Name "1" -PropertyType "String" -Value $HomePage -Force
 New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox\PopupBlocking\Allow" -Name "2" -PropertyType "String" -Value $HomePage -Force
+}
+```
+Desinstalación en un equipo remoto.
+```powershell
+Invoke-Command -ComputerName PC01 -ScriptBlock { 
+Start-Process -FilePath "$env:ProgramFiles\Mozilla Firefox\uninstall\helper.exe" -ArgumentList "/SILENT" -Wait
 }
 ```
 ### Referencia
