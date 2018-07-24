@@ -62,7 +62,7 @@ $credenciales = Get-Credential -Credential "Dominio\Usuario"
 Invoke-Command -ComputerName PC01 -ScriptBlock { 
 $version = "60.1.0"
 $HomePage = "https://www.web.com"
-$InstallPath = "\\proteon\Shared\Apps"
+$InstallPath = "\\server\Shared\Apps"
 New-PSDrive -Name "PSDrive" -PSProvider "FileSystem" -Root $InstallPath -Credential $using:credenciales
 Start-Process -FilePath "$InstallPath\Firefox Setup $($version)esr.exe" -ArgumentList "/S /TaskbarShortcut=true /DesktopShortcut=true" -Wait
 New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox" -Name "DontCheckDefaultBrowser" -PropertyType "DWord" -Value "1" -Force
