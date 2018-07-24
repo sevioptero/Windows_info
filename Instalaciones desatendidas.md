@@ -122,16 +122,13 @@ Setup.exe /s /f1C:\eviews\install\setup.iss
 * [Silent install of 7.1 patch & update](http://forums.eviews.com/viewtopic.php?t=2351)
 
 # Mozilla Firefox ESR
-## Desde CMD
+## Instalación
+### Desde CMD
 Instalación.
 ```Batchfile
 "Firefox Setup 60.0.3.exe" /S
 ```
-Desinstalación:
-```Batchfile
-%programfiles%\Mozilla Firefox\uninstall\helper.exe /SILENT
-```
-## Desde PowerShell
+### Desde PowerShell
 Instalación en un equipo remoto.
 ```powershell
 $credenciales = Get-Credential -Credential "Dominio\Usuario"
@@ -151,6 +148,12 @@ New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox\PopupBlocking\Al
 New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox\PopupBlocking\Allow" -Name "2" -PropertyType "String" -Value $HomePage -Force
 }
 ```
+## Desinstalación
+### Desde CMD
+```Batchfile
+%programfiles%\Mozilla Firefox\uninstall\helper.exe /SILENT
+```
+### Desde PowerShell
 Desinstalación en un equipo remoto.
 ```powershell
 Invoke-Command -ComputerName PC01 -ScriptBlock { 
@@ -161,7 +164,9 @@ Start-Process -FilePath "$env:ProgramFiles\Mozilla Firefox\uninstall\helper.exe"
 * [Mozilla Firefox - Full Installer Configuration - Command-line Options](https://firefox-source-docs.mozilla.org/browser/installer/windows/installer/FullConfig.html)
 
 # Java JRE
-## Instalación mediante archivo EXE
+## Instalación
+### Desde CMD
+Mediante archivo EXE
 ```Batchfile
 jre-8u171-windows-i586.exe INSTALL_SILENT=Enable REMOVEOUTOFDATEJRES=1
 ```
