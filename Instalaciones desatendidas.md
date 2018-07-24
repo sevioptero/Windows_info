@@ -5,6 +5,7 @@ Contenido:
 * [Instalación de Mozilla Firefox](#instalación-de-mozilla-firefox)
 * [Instalación de Java JRE](#instalación-de-java-jre)
 * [Instalación de VLC](#instalación-de-vlc)
+* [Enlaces](#enlaces)
 
 ***
 
@@ -67,3 +68,5 @@ vlc-3.0.3-win64.exe /S
 ### Referencia
 * [VLC Documentation:Installing VLC](https://wiki.videolan.org/Documentation:Installing_VLC/#Alternative)
 
+## Enlaces
+* [Desktop Central - Software Installation Guide](https://www.manageengine.com/products/desktop-central/software-installation/windows-software.html)
