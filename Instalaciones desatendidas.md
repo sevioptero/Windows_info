@@ -70,3 +70,4 @@ vlc-3.0.3-win64.exe /S
 
 ## Enlaces
 * [Desktop Central - Software Installation Guide](https://www.manageengine.com/products/desktop-central/software-installation/windows-software.html)
+* [SilentInstall.net](https://silent-install.net/start)
