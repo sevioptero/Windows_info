@@ -11,11 +11,17 @@ Contenido:
 ***
 
 # Consideraciones
-Para que funcione la instalación remota el archivo instalador debe estar desbloqueado. Esto pasa por ejemplo con el instalador de Firefox. Para desbloquearlo (o ver si lo está):
+Para que funcione la instalación remota el archivo instalador debe estar desbloqueado. Esto pasa por ejemplo con el instalador de Firefox. 
+## Desbloqueo del archivo
+### De forma manual
 1. Botón derecho sobre el archivo instalador.
 2. Hacemos clic en Propiedades.
 3. Marcamos Desbloquear y pulsamos Aceptar.
-
+### Desde PowerShell
+```powershell
+$version = "60.1.0"
+Unblock-File -Path "$InstallPath\Firefox-ESR\Firefox Setup $($version)esr.exe"
+```
 # 7-Zip
 ## Instalación
 ### Desde CMD
@@ -59,7 +65,28 @@ set installerversion=%filename:~2,4%
 echo Instalando %AppName% %installerversion% %PLATAFORMA%
 "%basepath%7z%installerversion%%PLATAFORMA%.exe" /S
 ```
-
+### Desde PowerShell
+```powershell
+$credenciales = Get-Credential -Credential "Dominio\Usuario"
+Invoke-Command -ComputerName PC01 -ScriptBlock { 
+$version = "1805"
+$InstallPath = "\\server\Shared\Apps"
+New-PSDrive -Name "PSDrive" -PSProvider "FileSystem" -Root $InstallPath -Credential $using:credenciales
+Unblock-File -Path "$InstallPath\7-ZIP\7z$version-x64.exe"
+Start-Process -FilePath "$InstallPath\7-ZIP\7z$version-x64.exe" -ArgumentList "/S" -Wait
+}
+```
+## Desinstalación
+### Desde CMD
+```batchfile
+%ProgramFiles%\7-Zip\Uninstall.exe /S
+```
+### Desde PowerShell
+```powershell
+Invoke-Command -ComputerName PC01 -ScriptBlock { 
+Start-Process -FilePath "$env:ProgramFiles\7-Zip\Uninstall.exe" -ArgumentList "/S" -Wait
+}
+```
 ## Referencia
 * [7-Zip FAQ](https://www.7-zip.org/faq.html)
 
@@ -112,7 +139,7 @@ Invoke-Command -ComputerName PC01 -ScriptBlock {
 $version = "60.1.0"
 $HomePage = "https://www.web.com"
 $InstallPath = "\\server\Shared\Apps"
-New-PSDrive -Name "PSDrive" -PSProvider "FileSystem" -Root "$InstallPath\Firefox-ESR" -Credential $using:credenciales
+New-PSDrive -Name "PSDrive" -PSProvider "FileSystem" -Root "$InstallPath" -Credential $using:credenciales
 Start-Process -FilePath "$InstallPath\Firefox-ESR\Firefox Setup $($version)esr.exe" -ArgumentList "/S /TaskbarShortcut=true /DesktopShortcut=true" -Wait
 New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox" -Name "DontCheckDefaultBrowser" -PropertyType "DWord" -Value "1" -Force
 New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox" -Name "DisableTelemetry" -PropertyType "DWord" -Value "1" -Force
@@ -153,7 +180,7 @@ $credenciales = Get-Credential -Credential "Dominio\Usuario"
 Invoke-Command -ComputerName PC01 -ScriptBlock { 
 $version = "3.0.3"
 $InstallPath = "\\server\Shared\Apps"
-New-PSDrive -Name "PSDrive" -PSProvider "FileSystem" -Root "$InstallPath\VLC" -Credential $using:credenciales
+New-PSDrive -Name "PSDrive" -PSProvider "FileSystem" -Root "$InstallPath" -Credential $using:credenciales
 Start-Process -FilePath "$InstallPath\VLC\vlc-$version-win64.exe" -ArgumentList "/S" -Wait
 }
 ```
