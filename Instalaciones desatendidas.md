@@ -45,9 +45,27 @@ Setup.exe /s /f1C:\eviews\install\setup.iss
 * [EViews 8 silent install](http://forums.eviews.com/viewtopic.php?t=7750)
 * [Silent install of 7.1 patch & update](http://forums.eviews.com/viewtopic.php?t=2351)
 
-## Instalación de Mozilla Firefox
+## Instalación de Mozilla Firefox ESR
 ```Batchfile
 "Firefox Setup 60.0.3.exe" /S
+```
+Instalación remota con PowerShell:
+```powershell
+$credenciales = Get-Credential -Credential "Dominio\Usuario"
+Invoke-Command -ComputerName PC01 -ScriptBlock { 
+$version = "60.1.0"
+$HomePage = "https://www.web.com"
+$InstallPath = "\\proteon\Shared\Apps"
+New-PSDrive -Name "PSDrive" -PSProvider "FileSystem" -Root $InstallPath -Credential $using:credenciales
+Start-Process -FilePath "$InstallPath\Firefox Setup $($version)esr.exe" -ArgumentList "/S /TaskbarShortcut=true /DesktopShortcut=true" -Wait
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox" -Name "DontCheckDefaultBrowser" -PropertyType "DWord" -Value "1" -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox" -Name "DisableTelemetry" -PropertyType "DWord" -Value "1" -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox" -Name "OverrideFirstRunPage" -PropertyType "String" -Value $HomePage -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox\Homepage" -Name "URL" -PropertyType "String" -Value $HomePage -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox\Homepage" -Name "Locked" -PropertyType "DWord" -Value "1" -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox\PopupBlocking\Allow" -Name "1" -PropertyType "String" -Value $HomePage -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox\PopupBlocking\Allow" -Name "2" -PropertyType "String" -Value $HomePage -Force
+}
 ```
 ### Referencia
 * [Mozilla Firefox - Full Installer Configuration - Command-line Options](https://firefox-source-docs.mozilla.org/browser/installer/windows/installer/FullConfig.html)
