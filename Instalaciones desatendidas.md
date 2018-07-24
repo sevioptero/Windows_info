@@ -140,6 +140,7 @@ $version = "60.1.0"
 $HomePage = "https://www.web.com"
 $InstallPath = "\\server\Shared\Apps"
 New-PSDrive -Name "PSDrive" -PSProvider "FileSystem" -Root "$InstallPath" -Credential $using:credenciales
+Unblock-File -Path "$InstallPath\Firefox-ESR\Firefox Setup $($version)esr.exe"
 Start-Process -FilePath "$InstallPath\Firefox-ESR\Firefox Setup $($version)esr.exe" -ArgumentList "/S /TaskbarShortcut=true /DesktopShortcut=true" -Wait
 New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox" -Name "DontCheckDefaultBrowser" -PropertyType "DWord" -Value "1" -Force
 New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Mozilla\Firefox" -Name "DisableTelemetry" -PropertyType "DWord" -Value "1" -Force
